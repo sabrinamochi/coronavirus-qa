@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Corona Virus Q&A from Boston Globe</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <style>
+        body {
+            margin: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        h1,
+        h2 {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+
+        .container {
+            margin: 150px auto;
+            width: 80%;
+            border: 1px solid rgba(0, 0, 0, 0.5);
+            border-radius: 2em;
+            padding: 2em;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.2);
+            background-color: white;
+        }
+
+        .card-container {
+            position: relative;
+            transition: all .5s ease;
+        }
+
+        .card {
+            position: absolute;
+            top: 0;
+            left: 0;
+            visibility: hidden;
+            opacity: 0;
+            line-height: 2em;
+            transition: all .5s ease;
+            font-size: 28px;
+
+        }
+
+        .active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 5em 0 0;
+        }
+
+        .title {
+            text-align: center;
+            padding: 8em 0 2em;
+            background-color: #d61b2b;
+        }
+
+        h1 {
+            font-size: 5em;
+            margin: 0 0 5%;
+            font-style: italic;
+            color: white;
+        }
+
+        h2 {
+            padding: 1em 0 2em;
+            font-size: 36px;
+        }
+
+        .subtitle {
+            text-transform: uppercase;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .author {
+            font-size: 12px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            font-size: 2em;
+            color: #d61b2b;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+
+<body>
+    <main>
+
+        <section class="title">
+            <h1>The most essential questions about coronavirus</h1>
+            <p class="subtitle">asked and answered</p>
+            <p class="author">by Szu Yu Chen</p>
+        </section>
+        <article class="container">
+            <div class="card-container">
+                <div class="card active" id="1">
+                    <h2>What does it feel like to have the new coronavirus?</h2>
+                    <p>The illness, now known as Covid-19, feels similar to the flu. The main symptoms are fever, cough,
+                        and
+                        shortness of
+                        breath. Although this is a new virus, so far it appears that the illness is mild in 80 percent
+                        of
+                        those who get it. An
+                        unknown number of people get infected but have no symptoms at all.</p>
+                </div>
+                <div class="card" id="2">
+                    <h2>That doesn’t sound so bad. What’s the big deal?</h2>
+                    <p>For starters, 20 percent do get severely ill and can develop pneumonia. Some even need intensive
+                        care
+                        and mechanical
+                        ventilation. Covid-19 sufferers could overwhelm hospitals if the epidemic spreads in this
+                        country.
+
+                        Children don’t seem to be affected. But elderly people and people with chronic illnesses are at
+                        high
+                        risk. So even if
+                        you survive a Covid-19 outbreak, someone you know may not.</p>
+                </div>
+                <div class="card" id="3">
+                    <h2>What is the death rate?</h2>
+                    <p>A recent study of the Chinese outbreak put the death rate at 2.3 percent. That’s more than 20
+                        times
+                        higher than the
+                        death rate from seasonal flu. It’s possible that number will change when it becomes clear how
+                        many
+                        people have been
+                        infected. But so far, in multiple studies, a death rate around 2 percent has been holding.</p>
+                </div>
+                <div class="card" id="4">
+                    <h2>In what other ways is Covid-19 different from the flu?</h2>
+                    <p>It’s more contagious. Each person who gets sick with Covid-19 on average infects two or three
+                        other
+                        people. For the flu,
+                        it’s closer to one person.</p>
+                </div>
+                <div class="card" id="5">
+                    <h2>How does Covid-19 spread?</h2>
+                    <p>Doctors believe that the primary mode of transmission is the same as for the flu or a cold: When
+                        an infected person
+                        coughs or sneezes, droplets bearing the virus spray into the air and then quickly fall to
+                        surfaces below. If you’re
+                        within 6 feet of a coughing and sneezing person, you could catch it. If you touch a surface with
+                        live virus still on it,
+                        and then touch your mouth, nose, or eyes, you can become infected. It’s not known how long the
+                        virus survives on
+                        surfaces.</br></br>
+                        But there are other possibilities, still under investigation. The virus that causes Covid-19 has
+                        been found in stool
+                        samples, so it’s possible it spreads through feces. And researchers have not ruled out the
+                        possibility that the virus
+                        can become airborne and able to travel through ventilation systems.</p>
+                </div>
+            </div>
+            <div class="nav">
+                <a class="button" id="button-prev">Prev</a>
+                <a class="button" id="button-next">Next</a>
+            </div>
+        </article>
+
+    </main>
+
+    <script>
+
+        var $numOfCard = $(".card").length;
+        var $card = $(".card");
+        var $currentCard = $card.filter(".active");
+
+        //set height of card
+        function setCardHeight() {
+            var $cardHeight = $currentCard.height();
+            $(".card-container").css({
+                height: $cardHeight
+            })
+        }
+
+        setCardHeight()
+
+        $("#button-next").on("click", function () {
+
+            var $nextItem = $currentCard.next(".card");
+            $currentCard.removeClass("active");
+
+            if ($nextItem.length) {
+                $currentCard = $nextItem.addClass("active")
+            }
+            else {
+                $currentCard = $card.first().addClass("active");
+            }
+
+            setCardHeight()
+        })
+
+        $("#button-prev").on("click", function () {
+
+            var $prevItem = $currentCard.prev(".card");
+            $currentCard.removeClass("active");
+
+            if ($prevItem.length) {
+                $currentCard = $prevItem.addClass("active");
+            }
+            else {
+                $currentCard = $card.last().addClass("active");
+            }
+
+            setCardHeight()
+        })
+
+
+    </script>
+</body>
+
+</html>
